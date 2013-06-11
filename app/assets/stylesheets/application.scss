@@ -42,3 +42,17 @@ div.nav_item {
 div.comment_votes {
   padding: 10px;
 }
+
+/* forms */
+
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+input, textarea, .uneditable-input {
+    width: auto;
+}

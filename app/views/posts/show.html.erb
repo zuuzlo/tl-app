@@ -1,0 +1,23 @@
+<% provide(:title, @post.title ) %>
+<h1><%= @post.title %></h1>
+<div class='media span8'>
+  <div class='well well-small'>
+    <h4 class='media-heading'><%= @post.title %><small> by <%= @post.user.name %> <%= @post.created_at.to_s %></small></h4>
+    <p><%= @post.description %></p>
+    Origin: <a href='<%= @post.url %>'><%= @post.url %></a>
+    <%if @post.categories.size > 0 %>
+      <ul class='inline'>Post Categories:
+        <%= render @post.categories %>
+      </ul>
+    <% end %>
+    <ul class='inline'>
+      <li> <%= link_to 'Edit Post', edit_post_path(@post) %></li>
+      <li>|</li>
+      <li><%= link_to 'Back to Posts', posts_path %></li>
+    </ul>
+  </div>
+  <%= render @post.comments %>
+  <div class="clearfix"></div>
+  <h4>Add Comment</h4>
+    <%= render "comments/form" %> 
+</div>

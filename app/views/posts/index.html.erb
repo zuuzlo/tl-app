@@ -1,1 +1,25 @@
-<h5>Welcome to the project template!</h5>
+<% provide(:title, "Posts") %>
+<h1>Posts</h1>
+<div class='span8'>
+  <% @posts.each do| post | %>
+  <div class='well well-small'>
+    <h4 class='media-heading'><%= link_to post.title, post %><small> by <%= post.user.name %> <%= post.created_at.to_s %></small></h4>
+    <p><%= post.description %></p>
+    Origin: <a href='<%= post.url %>'><%= post.url %></a>
+    <%if post.categories.size > 0 %>
+      <ul class='inline'>Post Categories:
+        <%= render post.categories %>
+      </ul>
+    <% end %>
+    <%if post.comments.size > 0 %>
+      <p>Comments: <%= post.comments.size %></p>
+    <% end %>
+    <ul class='inline'>
+      <li><%= link_to 'View', post_path(post) %></li>
+      <li>|</li>
+      <li><%= link_to 'Edit Post', edit_post_path(post) %></li>
+    </ul>
+  </div><br>
+  <% end %>
+</div>
+
