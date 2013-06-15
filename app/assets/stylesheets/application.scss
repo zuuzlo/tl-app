@@ -12,6 +12,8 @@
  *= require_tree .
  */
 
+$linkColor:      #22d414;
+
 @import 'bootstrap';
 @import "bootstrap-responsive";
 
@@ -20,18 +22,18 @@
 }
 
 .navbar .nav > li > a.brand {
-  padding-left: 0px;
+  padding-left: 0px !important;
 }
 
 .quiet {
   color: #ababab;
 }
-
+/*
 div.nav_item {
   margin-left: 25px;
   float: left;
 }
-
+*/
 .label  {
   a, a:hover, a:focus {
     color: #fff;
@@ -55,4 +57,8 @@ div.comment_votes {
 
 input, textarea, .uneditable-input {
     width: auto;
+}
+
+.nav_img {
+  padding-top: 3px;
 }

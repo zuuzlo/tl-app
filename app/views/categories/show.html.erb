@@ -1,5 +1,6 @@
-<% provide(:title, "Posts") %>
-<h2>Posts</h2>
+<% provide(:title, "Category #{@category.name}") %>
+<h2>Category: <%=@category.name %></h2>
+
 <div class='span8'>
   <% @posts.each do| post | %>
   <div class='well well-small'>
@@ -24,4 +25,3 @@
   </div>
   <% end %>
 </div>
-

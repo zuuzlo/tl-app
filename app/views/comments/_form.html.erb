@@ -1,9 +1,10 @@
 
 <div class='row'>
   <div class='span8'>
-    <%= form_for([@post, @post.comments.build]) do |f| %>
-        <% binding.pry %>
-        <% if @post.comments.size > 1 %> 
+    
+    <%= form_for([@post, Comment.new]) do |f| %>
+        
+        <% if @post.comments.size > 0 %> 
           <%= render 'shared/error_messages' %>
         <% end %>
         <%= f.label :user_id %>

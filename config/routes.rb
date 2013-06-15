@@ -13,4 +13,8 @@ Postit::Application.routes.draw do
   resources :users, except:[:destroy] do
 
   end
+
+  resources :categories, except:[:destroy] do
+    resources :posts, only:[:show]
+  end
 end

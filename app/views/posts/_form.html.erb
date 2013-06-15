@@ -1,0 +1,22 @@
+<%= form_for @post do |f| %>
+  <%= render 'shared/error_messages' %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title, class: 'input-xxlarge' %>
+      
+  <%= f.label :description %>
+  <%= f.text_area :description, :size => "60x2" %>
+
+  <%= f.label :url %>
+  <%= f.url_field :url %><br />
+
+  <%= f.label :category %>
+  <%= f.select :category_ids, Category.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %><br />
+
+  <%= f.hidden_field :user_id, :value => 1 %> 
+
+  <%= f.submit class: "btn btn-large btn-primary"  %>
+  <% if @post.title.nil? %>
+    <%= f.submit "Self Populate", name: "commit", class: "btn btn-large btn-primary"  %>
+  <% end %>
+<% end %> 
