@@ -1,6 +1,11 @@
 <div class='media offset1 span6'>
   <div class='well well-small'>
-  <h4 class='media-heading'>Comment<small> by <%= comment.user.name %></small></h4>
+  <h4 class='media-heading'>Comment<small> by <%= comment.user.username %> on <%= comment.created_at.to_s(:long) %></small></h4>
     <%= comment.text %>
+    <% if logged_in? && current_user.id == comment.user_id %>
+      <ul class='inline'>
+        <li> <%= link_to 'Edit Comment', edit_polymorphic_path([@post, comment])  %></li>
+      </ul>
+    <% end %>
   </div>
 </div>

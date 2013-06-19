@@ -3,10 +3,13 @@
   <li><%= image_tag("psp32.png", :class => "nav_img") %></li>
   <li><%= link_to "Health & Safety Posts", root_path, :class => 'active' %></li>
   <li class="divider-vertical"></li>
-  <li>
-    <%= link_to 'New Post', new_post_path, :class => 'active' %>
-  </li>
-  <li class="divider-vertical"></li>
+
+  <% if logged_in? %>
+    <li>
+      <%= link_to 'New Post', new_post_path, :class => 'active' %>
+    </li>
+    <li class="divider-vertical"></li>
+  <% end %>
   <li class='dropdown'>
     <a href='#' class="dropdown-toggle" data-toggle="dropdown">
       Categories
@@ -14,10 +17,32 @@
     </a>
     <ul class="dropdown-menu">
       <% categories = Category.all %>
+
         <% categories.each do | category | %>
           <li><%= link_to "#{category.name}", category_path(category) %></li>
+        <% end %>
+        <li class='divider'><li>
+        <li><%= link_to "Show all", categories_path %></li>
+
+      <% if logged_in? %>
+        <li class='divider'><li>
+        <li><%= link_to "Add Category", new_category_path %></li>
       <% end %>
-      
     </ul>
   </li>
 </ul>
+
+<% if logged_in? %>
+  <ul class='nav pull-right'>
+    <li><%= link_to "Welcome #{current_user.username}", "#" %> </li>
+    <li class="divider-vertical"></li>
+    <li><%= link_to "Log out", "/logout" %></li>
+  </ul>
+<% else %>
+  <ul class='nav pull-right'>
+    <li><%= link_to "Register", '/register' %></li>
+    <li class="divider-vertical"></li>
+    <li><%= link_to "Log in", '/login' %></li>
+  </ul>
+<% end %>
+

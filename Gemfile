@@ -6,6 +6,7 @@ gem 'thin'
 
 gem 'bootstrap-sass', '~> 2.3.0.1'
 gem 'jquery-rails'
+gem 'bcrypt-ruby'
 
 gem 'simple-rss'
 #gem 'open-uri'

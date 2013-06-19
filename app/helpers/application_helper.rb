@@ -1,7 +1,7 @@
 module ApplicationHelper
   def full_title(page_title)
 
-    base_title = "Health and Safety Discussion Board"
+    base_title = "Health and Safety Post it Board"
     if page_title.empty?
       base_title
     else

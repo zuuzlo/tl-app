@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   
   def index
-    @posts = Post.all
+    @posts = Post.all.reverse
   end
 
   def new
@@ -10,21 +10,19 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(params[:post])
+    @post.user_id = current_user.id
     if params[:commit] == "Self Populate"
-      require 'open-uri'
-      #require 'htmlentities'
-      rss = SimpleRSS.parse open('http://www.osha.gov/pls/oshaweb/newsRelease.xml')
-      #@post.title = HTMLEntities.new.decode(rss.items.first.title)
-      item = 1 + rand(4)
-      @post.title = rss.items[item].title.html_safe
-      @post.description = rss.items[item].description.html_safe
-      @post.url = rss.items[item].link.html_safe
+      binding.pry
+      auto_feed = rss_in(params[:rss]);
+      @post.title = auto_feed[:title]
+      @post.description = auto_feed[:description]
+      @post.url = auto_feed[:url]
       render 'edit'
     else
     
       if @post.save
-        flash[:success] = "Your post has been saved!"
-        redirect_to @post
+        #flash[:success] = "Your post has been saved!"
+        redirect_to @post, :success => "Your post has been saved!"
       else
         render 'new'
       end
@@ -33,18 +31,19 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
   end
 
   def edit
     @post = Post.find(params[:id])
+    @comment = Comment.new
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:id]) 
 
     if @post.update_attributes(params[:post])
-      flash[:success] = "Your post has been edited and saved!"
-      redirect_to @post
+      redirect_to @post, :success => "Your post has been edited and saved!"
     else
       render 'edit'
     end

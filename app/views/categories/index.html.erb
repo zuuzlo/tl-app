@@ -1,0 +1,14 @@
+<% provide(:title, "Categories") %>
+<h2>Categories</h2>
+<div class='span4'>
+  <% @categories.each do | cat | %>
+    
+    <div class='well well-small'>
+      <h4 class='media-heading'><%= link_to cat.name, category_path(cat) %></h4>
+    </div>
+  <% end %>
+</div>
+<% if logged_in? %>
+  <div class="clearfix"></div>
+  <%= render 'form' %>
+<% end %>

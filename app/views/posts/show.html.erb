@@ -2,30 +2,27 @@
 <h2><%= @post.title %></h2>
 <div class='media span8'>
   <div class='well well-small'>
-    <h4 class='media-heading'><%= link_to @post.title, @post.url %><small> by <%= @post.user.name %> <%= @post.created_at.to_s %></small></h4>
+    <h4 class='media-heading'><%= link_to @post.title, @post.url %><small> by <%= @post.user.username %> on <%= @post.created_at.to_s(:long) %></small></h4>
     <p><%= @post.description %></p>
-    Origin: <a href='<%= @post.url %>'><%= @post.url %></a>
+
     <%if @post.categories.size > 0 %>
       <ul class='inline'>Post Categories:
         <%= render @post.categories %>
       </ul>
     <% end %>
     <ul class='inline'>
-      <li> <%= link_to 'Edit Post', edit_post_path(@post) %></li>
-      <li>|</li>
+      <% if logged_in? && current_user.id == @post.user_id %>
+        <li> <%= link_to 'Edit Post', edit_post_path(@post) %></li>
+        <li>|</li>
+      <% end  %>
       <li><%= link_to 'Back to Posts', posts_path %></li>
     </ul>
   </div>
   <% @post.comments.reload %>
-  <% @post.comments.each do | comment | %>
-  <div class='media offset1 span6'>
-    <div class='well well-small'>
-      <h4 class='media-heading'>Comment<small> by <%= comment.user.name %></small></h4>
-      <%= comment.text %>
-    </div>
-  </div>
-  <% end %>
-  <div class="clearfix"></div>
-  <h4>Add Comment</h4>
-    <%= render "comments/form" %> 
+  <%= render @post.comments %>
+  <% if logged_in? %>
+    <div class="clearfix"></div>
+    <h4>Add / Edit Comment</h4>
+    <%= render '/comments/form' %>
+  <% end %> 
 </div>

@@ -1,0 +1,12 @@
+<%= form_for @user do |f| %>
+
+  <%= render 'shared/error_messages', object: @user %>
+
+  <%= f.label :username%>
+  <%= f.text_field :username %>
+
+  <%= f.label :password%>
+  <%= f.password_field :password %><br>
+
+  <%= f.submit @user.new_record? ? "Register" : "Update Profile", class: "btn btn-large btn-info" %>
+<% end %>

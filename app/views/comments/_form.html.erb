@@ -1,20 +1,18 @@
 
 <div class='row'>
   <div class='span8'>
-    
-    <%= form_for([@post, Comment.new]) do |f| %>
+  
+    <%= form_for([ @post, @comment ]) do |f| %>
         
         <% if @post.comments.size > 0 %> 
-          <%= render 'shared/error_messages' %>
+          <%= render 'shared/error_messages', object: @comment %>
         <% end %>
-        <%= f.label :user_id %>
-        <%= f.text_field :user_id %>
      
         <%= f.label :text %>
         <%= f.text_area :text, :size => "60x2" %><br />
    
     
-        <%= f.submit "Add comment", class: 'btn btn-primary' %>
+        <%= f.submit class: 'btn btn-large btn-info' %>
     
       <% end %>
   </div>
