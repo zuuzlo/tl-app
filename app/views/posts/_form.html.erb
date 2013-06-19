@@ -17,7 +17,7 @@
   <%= f.submit class: "btn btn-large btn-info"  %><br>
 
   <% if @post.title.nil? %>
-    <h3>Chose feed to self populate from</h3>
+    <h3>Chose feed to self populate form.</h3>
     <label class="radio">
       <%= radio_button_tag(:rss, "1") %>
       <%= label_tag(:rss_1, "OSHA News Feed") %>

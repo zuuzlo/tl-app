@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
-  
+
+
+  before_filter :require_user, only: [:new, :create, :edit, :update]
+
   def index
     @posts = Post.all.reverse
   end
@@ -11,8 +14,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(params[:post])
     @post.user_id = current_user.id
+
     if params[:commit] == "Self Populate"
-      binding.pry
       auto_feed = rss_in(params[:rss]);
       @post.title = auto_feed[:title]
       @post.description = auto_feed[:description]

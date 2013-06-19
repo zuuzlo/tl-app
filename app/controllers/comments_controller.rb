@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_filter :require_user 
+
   def new 
     @post = Post.find(params[:post_id])
     @comment = Comment.new

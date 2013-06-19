@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  helper_method :current_user, :logged_in?  #so varible is available to views
+  helper_method :current_user, :logged_in?, :require_user  #so varible is available to views
 
   def current_user
 
@@ -11,6 +11,14 @@ class ApplicationController < ActionController::Base
   def logged_in?
 
     !!current_user #!! maks's sure you return bool will not return nil
+  end
+
+  def require_user
+
+    unless logged_in?
+      flash[:error] = "You must be logged in to perform that action!"
+      redirect_to root_path
+    end
   end
 
   def rss_in(feed)  
