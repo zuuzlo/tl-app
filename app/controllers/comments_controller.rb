@@ -1,14 +1,16 @@
 class CommentsController < ApplicationController
   before_filter :require_user 
+  before_filter :find_comment, only: [:edit, :update, :vote]
+  before_filter :find_comment_post, only: [:new, :create, :edit, :update, vote:]
 
   def new 
-    @post = Post.find(params[:post_id])
+    
     @comment = Comment.new
     @comment.user_id = current_user.id
   end
 
   def create
-    @post = Post.find(params[:post_id])
+    
     @comment = @post.comments.new(params[:comment])
     @comment.user_id = current_user.id
     if @comment.save
@@ -22,20 +24,33 @@ class CommentsController < ApplicationController
   end
 
   def edit 
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
-    render 'posts/show'
+
+    render '/posts/show'
   end
 
   def update
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
 
     if @comment.update_attributes(params[:comment])
       flash[:success] = "Your comment has been edited and saved."
       redirect_to @post 
     else
-      render 'posts/show'
+      render '/posts/show'
     end
+  end
+
+  def vote
+    binding.pry
+    Vote.create(user: current_user, voteable: @comment, vote: params[:vote])
+    
+    flash[:success] = "Your comment vote has been saved!"
+    redirect_to :back
+  end
+
+  def find_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def find_comment_post
+    @post = Post.find(params[:post_id])
   end
 end

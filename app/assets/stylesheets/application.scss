@@ -45,6 +45,7 @@ div.comment_votes {
   padding: 10px;
 }
 
+
 /* forms */
 
 #error_explanation {
@@ -61,4 +62,13 @@ input, textarea, .uneditable-input {
 
 .nav_img {
   padding-top: 3px;
+}
+
+span.vote_text{
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 30px;
+}
+div.vote_text{
+  text-align: center;
 }

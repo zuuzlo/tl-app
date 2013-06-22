@@ -1,0 +1,11 @@
+<div class='well well-small span'> 
+  <%= link_to vote_post_path(post, vote: true), method: 'post' do %>
+    <span class="label label-success"><i class='icon-circle-arrow-up'></i></span>
+  <% end %>
+  <div class='vote_text'>
+    <span class='vote_text'><strong><%= post.total_votes %></strong></span>
+  </div>
+  <%= link_to vote_post_path(post, vote: false), method: 'post' do %>
+    <span class="label label-important"><i class='icon-circle-arrow-down'></i></span>
+  <% end %>
+</div>

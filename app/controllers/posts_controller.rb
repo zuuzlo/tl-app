@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
-
-  before_filter :require_user, only: [:new, :create, :edit, :update]
+  before_filter :find_post, only: [:show, :edit, :update, :vote]
+  before_filter :require_user, only: [:new, :create, :edit, :update, :vote]
 
   def index
     @posts = Post.all.reverse
@@ -33,23 +33,32 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    #@post = Post.find(params[:id])
     @comment = Comment.new
   end
 
   def edit
-    @post = Post.find(params[:id])
+    #@post = Post.find(params[:id])
     @comment = Comment.new
   end
 
   def update
-    @post = Post.find(params[:id]) 
+    #@post = Post.find(params[:id]) 
 
     if @post.update_attributes(params[:post])
       redirect_to @post, :success => "Your post has been edited and saved!"
     else
       render 'edit'
     end
+  end
 
+  def vote
+    Vote.create(user: current_user, voteable: @post, vote: params[:vote])
+    flash[:success] = "Your vote has been saved!"
+    redirect_to :back
+  end
+
+  def find_post
+    @post = Post.find(params[:id]) 
   end
 end

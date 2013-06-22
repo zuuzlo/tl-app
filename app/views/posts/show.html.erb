@@ -1,8 +1,9 @@
 <% provide(:title, @post.title ) %>
 <h2><%= @post.title %></h2>
-<div class='media span8'>
-  <div class='well well-small'>
-    <h4 class='media-heading'><%= link_to @post.title, @post.url %><small> by <%= @post.user.username %> on <%= @post.created_at.to_s(:long) %></small></h4>
+<div class='span11'>
+  <%= render :partial => '/posts/vote', :locals => {:post => @post } %>
+  <div class='well well-small offset1'>
+    <h4 class='media-heading'><%= link_to @post.title, @post.url %><small> by <%= @post.user.username %> on <%= display_datetime(@post.created_at) %></small></h4>
     <p><%= @post.description %></p>
 
     <%if @post.categories.size > 0 %>
@@ -18,8 +19,10 @@
       <li><%= link_to 'Back to Posts', posts_path %></li>
     </ul>
   </div>
+  
   <% @post.comments.reload %>
   <%= render @post.comments %>
+  
   <% if logged_in? %>
     <div class="clearfix"></div>
     <h4>Add / Edit Comment</h4>

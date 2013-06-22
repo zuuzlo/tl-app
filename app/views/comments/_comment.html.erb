@@ -1,6 +1,19 @@
-<div class='media offset1 span6'>
+<div class='well well-small span offset1'> 
+
+  <%= link_to polymorphic_path([@post, comment], vote: true) , method: 'post' do %>
+    <span class="label label-success"><i class='icon-circle-arrow-up'></i></span>
+  <% end %>
+  <div class='vote_text'>
+    <span class='vote_text'><strong><%= comment.total_votes %></strong></span>
+  </div>
+  <%= link_to polymorphic_path([@post, comment], :action => 'vote', vote: false) , method: 'post' do %>
+  
+    <span class="label label-important"><i class='icon-circle-arrow-down'></i></span>
+  <% end %>
+</div>
+<div class='offset2'>
   <div class='well well-small'>
-  <h4 class='media-heading'>Comment<small> by <%= comment.user.username %> on <%= comment.created_at.to_s(:long) %></small></h4>
+  <h4 class='media-heading'>Comment<small> by <%= comment.user.username %> on <%= display_datetime(comment.created_at) %></small></h4>
     <%= comment.text %>
     <% if logged_in? && current_user.id == comment.user_id %>
       <ul class='inline'>
