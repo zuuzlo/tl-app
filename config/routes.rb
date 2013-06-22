@@ -16,15 +16,15 @@ Postit::Application.routes.draw do
       post 'vote'   
     end
 
-    resources :categories, only:[:show, :index]
+    #resources :categories, only:[:show, :index]
     resources :comments do
       member do
         post 'vote'
       end
     end
- end
+  end
 
-  resources :users, only:[:create] do
+  resources :users, only:[:create, :show] do
 
   end
 

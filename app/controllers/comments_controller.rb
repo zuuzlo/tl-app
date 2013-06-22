@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_filter :require_user 
   before_filter :find_comment, only: [:edit, :update, :vote]
-  before_filter :find_comment_post, only: [:new, :create, :edit, :update, vote:]
+  before_filter :find_comment_post, only: [:new, :create, :edit, :update, :vote]
 
   def new 
     
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    binding.pry
+  
     Vote.create(user: current_user, voteable: @comment, vote: params[:vote])
     
     flash[:success] = "Your comment vote has been saved!"
