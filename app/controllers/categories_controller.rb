@@ -16,6 +16,8 @@ class CategoriesController < ApplicationController
   end
 
   def new
+    @categories = Category.all
+    @category = Category.new
     render 'index'
   end
 
