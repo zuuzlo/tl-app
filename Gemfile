@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
-
-ruby '1.9.3'
+ruby "1.9.3"
 
 gem 'rails', '3.2.12'
+
 gem 'json'
 gem 'thin'
 
 gem 'bootstrap-sass', '~> 2.3.0.1'
 gem 'jquery-rails'
 gem 'bcrypt-ruby'
-
 gem 'simple-rss'
+gem 'heroku'
 #gem 'open-uri'
 
 # Gems used only for assets and not required
