@@ -54,8 +54,15 @@ class PostsController < ApplicationController
 
   def vote
     Vote.create(user: current_user, voteable: @post, vote: params[:vote])
-    flash[:success] = "Your vote has been saved!"
-    redirect_to :back
+    
+    respond_to do |format|
+      format.html do  
+        flash[:success] = "Your vote has been saved!"
+        redirect_to :back
+      end
+
+      format.js
+    end
   end
 
   def find_post

@@ -39,11 +39,16 @@ class CommentsController < ApplicationController
   end
 
   def vote
-  
     Vote.create(user: current_user, voteable: @comment, vote: params[:vote])
-    
-    flash[:success] = "Your comment vote has been saved!"
-    redirect_to :back
+
+    respond_to do |format|
+      format.html do
+        flash[:success] = "Your comment vote has been saved!"
+        redirect_to :back
+      end
+
+      format.js
+    end
   end
 
   def find_comment
