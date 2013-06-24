@@ -7,5 +7,6 @@ class CreatePostsCategorys < ActiveRecord::Migration
   end
 
   def down
+    drop_table :posts_categories
   end
 end
