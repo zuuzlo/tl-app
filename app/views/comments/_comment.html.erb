@@ -1,14 +1,17 @@
 <div class='well well-small span offset1'> 
-
-  <%= link_to polymorphic_path([@post, comment],action: 'vote', vote: true) , method: 'post', remote: true do %>
-    <span class="label label-success"><i class='icon-circle-arrow-up'></i></span>
+  <% if logged_in? %>
+    <%= link_to polymorphic_path([@post, comment],action: 'vote', vote: true) , method: 'post', remote: true do %>
+      <span class="label label-success"><i class='icon-circle-arrow-up'></i></span>
+    <% end %>
   <% end %>
   <div class='vote_text'>
     <span class='vote_text' id="comment_<%= comment.id %>_votes"><strong><%= comment.total_votes %></strong></span>
   </div>
-  <%= link_to polymorphic_path([@post, comment], :action => 'vote', vote: false) , method: 'post', remote: true do %>
-  
-    <span class="label label-important"><i class='icon-circle-arrow-down'></i></span>
+  <% if logged_in? %>
+    <%= link_to polymorphic_path([@post, comment], :action => 'vote', vote: false) , method: 'post', remote: true do %>
+    
+      <span class="label label-important"><i class='icon-circle-arrow-down'></i></span>
+    <% end %>
   <% end %>
 </div>
 <div class='offset2'>

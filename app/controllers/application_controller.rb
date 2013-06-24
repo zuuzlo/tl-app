@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     item = 1 + rand(4)
     rss_params = {}
     rss_params[:title] = rss.items[item].title.html_safe
-    rss_params[:description] = rss.items[item].description.html_safe
+    rss_params[:description] = rss.items[item].description.truncate(250, :separator => ' ').html_safe
     rss_params[:url] = rss.items[item].link.html_safe
     
     return rss_params
