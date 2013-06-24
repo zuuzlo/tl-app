@@ -6,9 +6,7 @@ class CreateVotes < ActiveRecord::Migration
       t.integer :user_id
       t.string   :voteable_type
       t.timestamps
-    end
-  end
-
+  
   def down
     drop_table :votes
   end
