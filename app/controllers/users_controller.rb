@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      redirect_to root_path, notice: "Welcome to Health & Safety Posts!"
+      redirect_to root_path, notice: "Welcome to Health & Safety Posts! Please log in."
     else
       @user.errors.delete(:password_digest)
       render 'new'
