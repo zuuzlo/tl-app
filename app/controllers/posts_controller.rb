@@ -53,7 +53,9 @@ class PostsController < ApplicationController
   end
 
   def vote
-    Vote.create(user: current_user, voteable: @post, vote: params[:vote])
+    unless user_voted?(@post)
+      Vote.create(user: current_user, voteable: @post, vote: params[:vote])
+    end
     
     respond_to do |format|
       format.html do  

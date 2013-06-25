@@ -1,14 +1,14 @@
 <div class='well well-small span'>
-  <% if logged_in? %> 
-    <%= link_to vote_post_path(post, vote: true), method: 'post', remote: true  do %>
+  <% if logged_in? && user_voted?(post) == false %> 
+    <%= link_to vote_post_path(post, vote: true), method: 'post', remote: true, id: "post_vote_true_#{post.id}"  do %>
       <span class="label label-success"><i class='icon-circle-arrow-up'></i></span>
     <% end %>
   <% end %>
   <div class='vote_text'>
     <span class='vote_text' id="post_<%= post.id %>_votes"><strong><%= post.total_votes %></strong></span>
   </div>
-  <% if logged_in? %>
-    <%= link_to vote_post_path(post, vote: false), method: 'post', remote: true  do %>
+  <% if logged_in? && user_voted?(post) == false %>
+    <%= link_to vote_post_path(post, vote: false), method: 'post', remote: true, id: "post_vote_false_#{post.id}"  do %>
       <span class="label label-important"><i class='icon-circle-arrow-down'></i></span>
     <% end %>
   <% end %>

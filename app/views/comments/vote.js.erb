@@ -1,1 +1,3 @@
-$("#comment_<%= @comment.id %>_votes").html(<%= @comment.total_votes %>);
+$("#comment_<%= @comment.id %>_votes").html("<strong><%= @comment.total_votes %></strong>");
+$("#comment_vote_true_<%= @comment.id %>").hide("slow");
+$("#comment_vote_false_<%= @comment.id %>").hide("slow");

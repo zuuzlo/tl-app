@@ -1,21 +1,22 @@
+<div>
 <div class='well well-small span offset1'> 
-  <% if logged_in? %>
-    <%= link_to polymorphic_path([@post, comment],action: 'vote', vote: true) , method: 'post', remote: true do %>
+  <% if logged_in? && user_voted?(comment) == false %>
+    <%= link_to polymorphic_path([@post, comment],action: 'vote', vote: true) , method: 'post', remote: true, id: "comment_vote_true_#{comment.id}" do %>
       <span class="label label-success"><i class='icon-circle-arrow-up'></i></span>
     <% end %>
   <% end %>
   <div class='vote_text'>
     <span class='vote_text' id="comment_<%= comment.id %>_votes"><strong><%= comment.total_votes %></strong></span>
   </div>
-  <% if logged_in? %>
-    <%= link_to polymorphic_path([@post, comment], :action => 'vote', vote: false) , method: 'post', remote: true do %>
+  <% if logged_in? && user_voted?(comment) == false %>
+    <%= link_to polymorphic_path([@post, comment], :action => 'vote', vote: false) , method: 'post', remote: true, id: "comment_vote_false_#{comment.id}" do %>
     
       <span class="label label-important"><i class='icon-circle-arrow-down'></i></span>
     <% end %>
   <% end %>
 </div>
 <div class='offset2'>
-  <div class='well well-small'>
+  <div class='well'>
   <h4 class='media-heading'>Comment<small> by <%= comment.user.username %> on <%= display_datetime(comment.created_at) %></small></h4>
     <%= comment.text %>
     <% if logged_in? && current_user.id == comment.user_id %>
@@ -24,4 +25,5 @@
       </ul>
     <% end %>
   </div>
+</div><br>
 </div>
