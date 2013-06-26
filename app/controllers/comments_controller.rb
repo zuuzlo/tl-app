@@ -58,6 +58,8 @@ class CommentsController < ApplicationController
   end
 
   def find_comment_post
-    @post = Post.find_by_slug(params[:post_id])
+    #@post = Post.find_by_slug(params[:post_id])
+    @post = Post.where(slug:params[:post_id]).first
+
   end
 end

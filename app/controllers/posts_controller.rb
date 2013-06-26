@@ -68,6 +68,7 @@ class PostsController < ApplicationController
   end
 
   def find_post
-    @post = Post.find_by_slug(params[:id]) 
+    #@post = Post.find_by_slug(params[:id]) 
+    @post = Post.where(slug:params[:id]).first
   end
 end
