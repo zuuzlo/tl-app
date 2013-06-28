@@ -1,5 +1,6 @@
 <% provide(:title, "Categories") %>
 <h2>Categories</h2>
+<hr>
 <div class='span4'>
   <% @categories.each do | cat | %>
     
@@ -10,5 +11,10 @@
 </div>
 <% if logged_in? %>
   <div class="clearfix"></div>
-  <%= render 'form' %>
+  <hr>
+  <h4>Create New Category</h4>
+  <hr>
+  <div class='offset1'>
+    <%= render 'form' %>
+  </div>
 <% end %>

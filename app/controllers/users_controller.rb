@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+
+  before_filter :require_user, only:[:show, :edit]
   
   def new
     @user = User.new
@@ -15,8 +17,22 @@ class UsersController < ApplicationController
   end
 
   def show
-    binding.pry
-    #TODO add logic to show all current users posts.
     @user = current_user
+    @posts = Post.where(user_id: current_user)
+    @comments = Comment.where(user_id: current_user)
+    if params[:view] == 'comment'
+      @post_class = ''
+      @comment_class = 'active'
+      @comment_view = true
+    else
+      @post_class = 'active'
+      @comment_class = ''
+      @comment_view = false
+    end
+  end
+
+  def edit
+    @user = current_user
+    render 'new'
   end
 end

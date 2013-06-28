@@ -24,7 +24,7 @@ Postit::Application.routes.draw do
     end
   end
 
-  resources :users, only:[:create, :show] do
+  resources :users, only:[:create, :edit, :show] do
 
   end
 

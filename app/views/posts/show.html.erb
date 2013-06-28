@@ -1,5 +1,6 @@
 <% provide(:title, @post.title ) %>
 <h2><%= @post.title %></h2>
+<hr>
 <div class='span11'>
   <%= render :partial => '/posts/vote', :locals => {:post => @post } %>
   <div class='well well-small offset1'>
@@ -19,13 +20,18 @@
       <li><%= link_to 'Back to Posts', posts_path %></li>
     </ul>
   </div>
-  
-  <% @post.comments.reload %>
-  <%= render @post.comments %>
-  
   <% if logged_in? %>
     <div class="clearfix"></div>
-    <h4>Add / Edit Comment</h4>
-    <%= render '/comments/form' %>
+      <hr>
+      <h4>Add / Edit Comment:</h4>
+      <hr>
+      <div class="offset1">
+      <%= render '/comments/form' %>
+    </div>
   <% end %> 
+  <hr>
+  <h4>Comments on <%= @post.title %></h4>
+  <hr>
+  <% @post.comments.reload %>
+  <%= render @post.comments %>
 </div>

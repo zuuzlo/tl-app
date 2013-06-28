@@ -1,4 +1,4 @@
-<div class='span10'>
+<div class='span10 type_post'>
   <% @posts.each do| post | %>
     <%= render :partial => '/posts/vote', :locals => {:post => post } %>
     <div class='well well-small offset1'>

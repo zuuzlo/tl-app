@@ -1,48 +1,57 @@
-<%= form_for @post do |f| %>
 
-  <%= render 'shared/error_messages', object: f.object %>
+<div class="span6 offset1">
+  <%= form_for @post do |f| %>
 
-  <%= f.label :title %>
-  <%= f.text_field :title, class: 'input-xxlarge' %>
-      
-  <%= f.label :description %>
-  <%= f.text_area :description, :size => "60x2" %>
+    <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.label :url %>
-  <%= f.url_field :url %><br />
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'input-xxlarge' %>
+        
+    <%= f.label :description %>
+    <%= f.text_area :description, :size => "66x2" %>
 
-  <%= f.label :category %>
-  <%= f.select :category_ids, Category.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %><br />
+    <%= f.label :url %>
+    <%= f.url_field :url, class: 'input-xxlarge' %><br />
 
-  <%= f.submit class: "btn btn-large btn-info"  %><br>
+    <%= f.label :category %>
+    <%= f.select :category_ids, Category.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %><br />
 
-  <% if @post.title.nil? %>
-    <h3>Chose feed to self populate form.</h3>
-    <label class="radio">
-      <%= radio_button_tag(:rss, "1") %>
-      <%= label_tag(:rss_1, "OSHA News Feed") %>
-    </label>
+    <%= f.submit class: "btn btn-large btn-info"  %><br>
+</div>
+    <% if @post.title.nil? %>
+      <div class='clearfix'></div>
+      <div>      
+        <hr>
+        <h4>(Optional) Chose feed to self populate form.<small> You will be given the chance to edit the post after the self populate.</small></h4>
+        <hr>
+      </div>
+        <div class="span6 offset1">
+          <label class="radio">
+            <%= radio_button_tag(:rss, "1") %>
+            <%= label_tag(:rss_1, "OSHA News Feed") %>
+          </label>
 
-    <label class="radio">
-      <%= radio_button_tag(:rss, "2") %>
-      <%= label_tag(:rss_2, "OHS Online News Feed") %>
-    </label>
+          <label class="radio">
+            <%= radio_button_tag(:rss, "2") %>
+            <%= label_tag(:rss_2, "OHS Online News Feed") %>
+          </label>
 
-    <label class="radio">
-      <%= radio_button_tag(:rss, "3") %>
-      <%= label_tag(:rss_2, "CSB New Video") %>
-    </label>
+          <label class="radio">
+            <%= radio_button_tag(:rss, "3") %>
+            <%= label_tag(:rss_2, "CSB New Video") %>
+          </label>
 
-    <label class="radio">
-      <%= radio_button_tag(:rss, "4") %>
-      <%= label_tag(:rss_2, "CSB Safety News") %>
-    </label>
+          <label class="radio">
+            <%= radio_button_tag(:rss, "4") %>
+            <%= label_tag(:rss_2, "CSB Safety News") %>
+          </label>
 
-    <label class="radio">
-      <%= radio_button_tag(:rss, "4") %>
-      <%= label_tag(:rss_2, "NFPA News Release") %>
-    </label>
+          <label class="radio">
+            <%= radio_button_tag(:rss, "4") %>
+            <%= label_tag(:rss_2, "NFPA News Release") %>
+          </label>
 
-    <%= f.submit "Self Populate", name: "commit", class: "btn btn-large btn-info"  %>
-  <% end %>
+          <%= f.submit "Self Populate", name: "commit", class: "btn btn-large btn-info"  %>
+        </div>
+    <% end %>
 <% end %> 
