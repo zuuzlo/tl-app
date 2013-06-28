@@ -1,0 +1,49 @@
+<% provide(:title, @user.username) %>
+<h2><%= @user.username %></h2>
+<ul class="nav nav-tabs">
+  <li id='user_post' class="<%=@post_class%>">
+    <%= link_to "Posts (#{@posts.size})", user_path(@user, view: 'post') %>
+    
+  </li>
+  <li id='user_comment' class='<%=@comment_class%>'>
+    <%= link_to "Comments (#{@comments.size})", user_path(@user, view: 'comment') %>
+  
+  </li>
+</ul>
+<% unless @comment_view %>
+  <%= render '/shared/posts' %>
+<% else %>
+  <% @comments.each do |comment| %>
+    <div>
+    <div class='well well-small span offset1'> 
+      <% if logged_in? && user_voted?(comment) == false %>
+        <%= link_to polymorphic_path([Post.find(comment.post_id), comment],action: 'vote', vote: true) , method: 'post', remote: true, id: "comment_vote_true_#{comment.id}" do %>
+          <span class="label label-success"><i class='icon-circle-arrow-up'></i></span>
+        <% end %>
+      <% end %>
+      <div class='vote_text'>
+        <span class='vote_text' id="comment_<%= comment.id %>_votes"><strong><%= comment.total_votes %></strong></span>
+      </div>
+      <% if logged_in? && user_voted?(comment) == false %>
+        <%= link_to polymorphic_path([Post.find(comment.post_id), comment], :action => 'vote', vote: false) , method: 'post', remote: true, id: "comment_vote_false_#{comment.id}" do %>
+        
+          <span class="label label-important"><i class='icon-circle-arrow-down'></i></span>
+        <% end %>
+      <% end %>
+    </div>
+    <div class='offset2'>
+      <div class='well'>
+      <h4 class='media-heading'>Comment<small> by <%= comment.user.username %> on <%= display_datetime(comment.created_at) %></small></h4>
+        on <%= link_to "#{ Post.find(comment.post_id).title }", post_path(comment.post_id) %><br>
+        <%= comment.text %>
+        <% if logged_in? && current_user.id == comment.user_id %>
+          <ul class='inline'>
+            <li> <%= link_to 'Edit Comment', edit_polymorphic_path([Post.find(comment.post_id), comment])  %></li>
+          </ul>
+        <% end %>
+      </div>
+    </div><br>
+    </div>
+  <% end %>
+<% end %>
+  
