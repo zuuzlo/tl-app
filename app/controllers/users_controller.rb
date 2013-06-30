@@ -8,8 +8,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+
     if @user.save
-      redirect_to root_path, notice: "Welcome to Health & Safety Posts! Please log in."
+      session[:user_id] = @user.id
+      redirect_to root_path, notice: "Welcome to Health & Safety Posts!"
     else
       @user.errors.delete(:password_digest)
       render 'new'
