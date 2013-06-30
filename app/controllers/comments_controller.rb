@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+
+  include ActiveModel::ForbiddenAttributesProtection
+
   before_filter :require_user 
   before_filter :find_comment, only: [:edit, :update, :vote]
   before_filter :find_comment_post, only: [:new, :create, :edit, :update, :vote]
@@ -11,7 +14,9 @@ class CommentsController < ApplicationController
 
   def create
     
-    @comment = @post.comments.new(params[:comment])
+    #@comment = @post.comments.new(params[:comment])
+    #comment_params
+    @comment = @post.comments.new(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
       flash[:success] = "Your comment has been saved!"
@@ -30,7 +35,7 @@ class CommentsController < ApplicationController
 
   def update
 
-    if @comment.update_attributes(params[:comment])
+    if @comment.update_attributes(comment_params)
       flash[:success] = "Your comment has been edited and saved."
       redirect_to @post 
     else
@@ -61,5 +66,10 @@ class CommentsController < ApplicationController
     #@post = Post.find_by_slug(params[:post_id])
     @post = Post.where(slug:params[:post_id]).first
 
+  end
+
+  def comment_params
+
+    params.permit(comment: [:text, :user_id, :post_id])[:comment]
   end
 end

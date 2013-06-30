@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
 
+  include ActiveModel::ForbiddenAttributesProtection
+
   before_filter :find_post, only: [:show, :edit, :update, :vote]
   before_filter :require_user, only: [:new, :create, :edit, :update, :vote]
 
@@ -12,7 +14,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(post_params)
+    #@post = Post.new(params[:post])
     @post.user_id = current_user.id
 
     if params[:commit] == "Self Populate"
@@ -45,7 +48,7 @@ class PostsController < ApplicationController
   def update
     #@post = Post.find(params[:id]) 
 
-    if @post.update_attributes(params[:post])
+    if @post.update_attributes(post_params)
       redirect_to @post, :success => "Your post has been edited and saved!"
     else
       render 'edit'
@@ -67,8 +70,16 @@ class PostsController < ApplicationController
     end
   end
 
+  private
+
   def find_post
     #@post = Post.find_by_slug(params[:id]) 
     @post = Post.where(slug:params[:id]).first
+  end
+
+  def post_params
+
+    params.permit(post: [:title, :description, :url, :category_ids => [] ])[:post]
+
   end
 end

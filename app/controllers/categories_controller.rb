@@ -1,4 +1,7 @@
 class CategoriesController < ApplicationController
+  
+  include ActiveModel::ForbiddenAttributesProtection
+
   before_filter :require_user, only: [:new, :create]
 
   def index
@@ -22,8 +25,9 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(params[:category])
-
+    #@category = Category.new(params[:category])
+    
+    @category = Category.new(category_params)
     if @category.save
       flash[:success] = "Your category has been saved!"
       redirect_to categories_path
@@ -31,5 +35,9 @@ class CategoriesController < ApplicationController
       @categories = Category.all
       render 'index'
     end
+  end
+
+  def category_params
+    params.permit(category: [:name])[:category]
   end
 end

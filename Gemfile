@@ -11,6 +11,8 @@ gem 'jquery-rails'
 gem 'bcrypt-ruby'
 gem 'simple-rss'
 gem 'heroku'
+
+gem 'strong_parameters'
 #gem 'open-uri'
 
 # Gems used only for assets and not required
